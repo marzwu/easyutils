@@ -1,6 +1,7 @@
 import re
 
 import requests
+import tushare as ts
 
 
 def get_stock_type(stock_code):
@@ -25,8 +26,12 @@ def get_stock_type(stock_code):
 
 def get_all_stock_codes():
     """获取所有股票 ID"""
-    all_stock_codes_url = 'http://www.shdjt.com/js/lib/astock.js'
-    grep_stock_codes = re.compile('~(\d+)`')
-    response = requests.get(all_stock_codes_url)
-    stock_codes = grep_stock_codes.findall(response.text)
-    return stock_codes
+
+    return list(ts.get_stock_basics().index)
+
+    # 包含内容太多，除了股票，还包含基金、指数
+    # all_stock_codes_url = 'http://www.shdjt.com/js/lib/astock.js'
+    # grep_stock_codes = re.compile('~(\d+)`')
+    # response = requests.get(all_stock_codes_url)
+    # stock_codes = grep_stock_codes.findall(response.text)
+    # return stock_codes
